@@ -7,15 +7,16 @@ Visualizer v;
  Then you can make a method that changes the values each time the update is called. 
  */
 class Visualizer {
-  
+  int numberOfBars = 10;
+  int widthOfBars = 40;
   float x, y;
   float [] values;
   float [] speeds;
   Visualizer(float x, float y) {
     this.x = x;
     this.y = y;
-    values = new float[10];
-    speeds = new float[10];
+    values = new float[numberOfBars];
+    speeds = new float[numberOfBars];
     for (int i = 0; i < values.length; i++) {
       values[i] = random(-99, 99);
       speeds[i] = random(2);
@@ -27,12 +28,12 @@ class Visualizer {
     //You can assume 10, but it would be even better 
     //if you could modify it to be larger increments.
     fill(255);
-    rect(x, y, 400, 200);
+    rect(x, y, widthOfBars * numberOfBars, 200);
     //This is a 200x400 box.
     //The width of the visualizer is 400! This rect is the border
 
     //the line is the 0 y-value, the top is 100, the bottom is -100
-    line(x, y+100, x+400, y+100);
+    line(x, y+100, x + widthOfBars * numberOfBars, y+100);
 
     //You need to use a loop. You need to make the HEIGHT of the bars 
     //the values in the array.
@@ -41,14 +42,14 @@ class Visualizer {
 
     //???WRITE THIS METHOD FIRST!!!
     //THESE ARE WRONG: They just illustrate how they could look
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < numberOfBars; i++) {
       if (values[i] > 0) {
         fill(255,0,0);
       }
       else {
         fill(0,255,0);
       }
-      rect(x+ i * 40,y + 100,40, values[i]);
+      rect(x+ i * widthOfBars,y + 100,widthOfBars, values[i]);
     }
 
     //Width of the visualizer is 400!
