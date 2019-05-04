@@ -12,6 +12,7 @@ class Visualizer {
   float x, y;
   float [] values;
   float [] speeds;
+  float maxHeight = 100;
   Visualizer(float x, float y) {
     this.x = x;
     this.y = y;
@@ -24,16 +25,17 @@ class Visualizer {
   }
 
   void display() {
+    
     //draw the bars equally spaced inside this box. 
     //You can assume 10, but it would be even better 
     //if you could modify it to be larger increments.
     fill(255);
-    rect(x, y, widthOfBars * numberOfBars, 200);
+    rect(x, y, widthOfBars * numberOfBars, maxHeight * 2);
     //This is a 200x400 box.
     //The width of the visualizer is 400! This rect is the border
 
     //the line is the 0 y-value, the top is 100, the bottom is -100
-    line(x, y+100, x + widthOfBars * numberOfBars, y+100);
+    line(x, y+ maxHeight, x + widthOfBars * numberOfBars, y+maxHeight);
 
     //You need to use a loop. You need to make the HEIGHT of the bars 
     //the values in the array.
@@ -43,13 +45,19 @@ class Visualizer {
     //???WRITE THIS METHOD FIRST!!!
     //THESE ARE WRONG: They just illustrate how they could look
     for (int i = 0; i < numberOfBars; i++) {
-      if (values[i] > 0) {
-        fill(255,0,0);
-      }
-      else {
+      if (values[i] > 50) {
         fill(0,255,0);
       }
-      rect(x+ i * widthOfBars,y + 100,widthOfBars, values[i]);
+      else if (values[i] > 0) {
+        fill(255,255,0);
+      }
+      else if (values[i] > -50) {
+        fill(255,130,0);
+      }
+      else {
+        fill(255,0,0);
+      }
+      rect(x+ i * widthOfBars,y + maxHeight,widthOfBars, -1 * values[i]);
     }
 
     //Width of the visualizer is 400!
@@ -63,7 +71,7 @@ class Visualizer {
       //??? keep them values between max/min value so they stay in the box.
 
       //??? reverse the speeds so the bar oscillates up/down when it reaches max/min
-    if( values[i] > 100 || values[i] < -100) {
+    if( values[i] > maxHeight || values[i] < -1 * maxHeight) {
        speeds[i] *= -1;
     }
     }
